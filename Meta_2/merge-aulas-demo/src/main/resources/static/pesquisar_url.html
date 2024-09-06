@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesquisar ligações ao URL</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/app.js"></script>
+    <script>
+        let currentPage = 1;
+        const itemsPerPage = 10;
+        let searchResults = [];
+
+        function handleSubmit(event) {
+            event.preventDefault(); // Evita o envio real do formulário
+            const url = document.getElementById('palavra').value;
+            document.getElementById('palavra').value = ''; // Apaga o conteúdo da caixa de texto
+            const messageElement = document.getElementById('message');
+            messageElement.innerText = 'Enviado'; // Exibe a mensagem "Enviado"
+            setTimeout(() => {
+                messageElement.innerText = ''; // Limpa a mensagem após 2 segundos
+            }, 2000); // 2000 milissegundos = 2 segundos
+
+            // Simula a busca e preenche searchResults com links fictícios
+            searchResults = Array.from({length: 50}, (_, i) => `https://example.com/result${i + 1}?url=${url}`);
+            currentPage = 1;
+            displayResults();
+        }
+
+        function displayResults() {
+            const resultsContainer = document.getElementById('results');
+            resultsContainer.innerHTML = '';
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = Math.min(startIndex + itemsPerPage, searchResults.length);
+
+            for (let i = startIndex; i < endIndex; i++) {
+                const resultItem = document.createElement('li');
+                const link = document.createElement('a');
+                link.href = searchResults[i];
+                link.textContent = searchResults[i];
+                resultItem.appendChild(link);
+                resultsContainer.appendChild(resultItem);
+            }
+
+            const pagination = document.getElementById('pagination');
+            pagination.style.display = searchResults.length > itemsPerPage ? 'flex' : 'none';
+            document.getElementById('prevButton').disabled = currentPage === 1;
+            document.getElementById('nextButton').disabled = endIndex >= searchResults.length;
+        }
+
+        function changePage(increment) {
+            currentPage += increment;
+            displayResults();
+        }
+    </script>
+</head>
+<body>
+    <h1>Pesquisar ligações ao URL</h1>
+    <form onsubmit="passar_link(event)">
+        <label for="palavra">Digite o URL para pesquisar:</label><br>
+        <input type="text" id="palavra" name="palavra" required><br><br>
+        <div class="button-group">
+            <button id="enviar_pedir_link" class="button"  type="submit">Enviar</button>
+            <button id="backButton" class="button" type="button" onclick="window.location.href='Index.html'">Voltar</button>
+        </div>
+    </form>
+    <p id="message"></p>
+    <ul id="results"></ul>
+    <div id="pagination" style="display: none;">
+        <button id="prevButton" class="button" onclick="changePage(-1)" type="button" disabled>&#8592; Anterior</button>
+        <button id="nextButton" class="button" onclick="changePage(1)" type="button">&#8594; Próxima</button>
+    </div>
+</body>
+</html>

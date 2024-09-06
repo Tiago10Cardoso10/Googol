@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indexar novo URL</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/app.js"></script>
+</head>
+<body>
+<h1>Indexar novo URL</h1>
+<form onsubmit="passar_url(event)">
+    <label for="url">Digite o URL para indexar:</label><br>
+    <input type="text" id="url" name="url" required><br><br>
+    <div class="button-group">
+        <button id="enviar_teste" class="button"  type="submit">Enviar</button>
+        <button id="backButton" class="button" type="button" onclick="window.location.href='Index.html'">Voltar</button>
+    </div>
+</form>
+<p id="message"></p>
+<footer>
+    <p>&copy; 2024 Googol. Todos os direitos reservados.</p>
+</footer>
+<div class="authors">
+    <p>Autores: Henrique Brás, Tiago Cardoso</p>
+</div>
+</body>
+</html>

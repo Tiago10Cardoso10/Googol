@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top 10 Palavras</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<h1>Top 10 Palavras Pesquisadas</h1>
+
+<div id="top10List"></div>
+
+<div class="button-group">
+    <button id="backButton" class="button" type="button" onclick="window.location.href='index.html'">Voltar</button>
+</div>
+
+<footer>
+    <p>&copy; 2024 Googol. Todos os direitos reservados.</p>
+</footer>
+<div class="authors">
+    <p>Autores: Henrique Brás, Tiago Cardoso</p>
+</div>
+
+<!-- Script para carregar os resultados do top 10 quando a página é carregada -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $.ajax({
+            url: 'http://localhost:8080/top10',
+            type: 'GET',
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function (response) {
+                if (response && response.message) {
+                   var top10List = response.message.split(', ');
+                   var ul = document.createElement('ul');
+                   top10List.forEach(function(item) {
+                       var wordAndCount = item.split('-');
+                       var word = wordAndCount[0];
+                       var count = wordAndCount[1];
+                       var li = document.createElement('li');
+                       li.textContent = word + ' - ' + count + ' ocorrência(s)';
+                       ul.appendChild(li);
+                   });
+                   document.getElementById('top10List').appendChild(ul);
+                } else {
+                    alert('Resposta do servidor não contém mensagem.');
+                }
+            },
+            error: function (xhr) {
+                alert('Erro ao carregar top 10: ' + xhr.status + ': ' + xhr.statusText);
+            }
+        });
+    });
+</script>
+</body>
+</html>

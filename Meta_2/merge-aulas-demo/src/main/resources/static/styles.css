@@ -1,0 +1,151 @@
+/* Reset de CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+}
+
+header {
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #333;
+}
+
+ol {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    max-width: 600px;
+    margin: 20px auto;
+    list-style-position: inside;
+}
+
+li {
+    font-size: 18px;
+    border-bottom: 1px solid #ccc;
+    padding: 8px 0;
+}
+
+li:last-child {
+    border-bottom: none;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px; /* Espaçamento entre os botões */
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    cursor: pointer;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+.button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+footer {
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.authors {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-size: 0.9em;
+    color: #666;
+}
+
+/* Estilo para a caixa de texto */
+input[type="text"] {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+/* Estilo para a lista de resultados */
+#results {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+#results li {
+    width: 350px;  /* Defina a largura desejada */
+    height: 35px; /* Defina a altura desejada */
+    list-style-type: none;
+    margin: 5px;
+    align: center;
+    padding: 10px;
+    background-color: #f0f0f0; /* Cor de fundo para visualização */
+    border: 1px solid #ccc;    /* Borda para visualização */
+    box-sizing: border-box;    /* Inclui o padding e border no tamanho total */
+}
+
+#results li a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+#results li a:hover {
+    text-decoration: underline;
+}
+
+#pagination {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+#pagination .button {
+    padding: 10px 20px;
+    font-size: 1em;
+}

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body onload="status(event)"> <!-- Add onload attribute to call status() when the page loads -->
+<h1>Ver Status</h1>
+
+<div class="status-box">
+    <div>
+        <h2>Número de Downloaders Ativos:</h2>
+        <p id="activeDownloaders">Carregando...</p>
+    </div>
+    <div>
+        <h2>Número de Links Existentes:</h2>
+        <p id="totalLinks">Carregando...</p>
+    </div>
+</div>
+<div id="linkList"></div>
+<div id="pagination" style="display: none;">
+    <button id="prevButton" class="button" onclick="changePage(-1)" type="button" disabled>&#8592; Anterior</button>
+    <button id="nextButton" class="button" onclick="changePage(1)" type="button">&#8594; Próxima</button>
+</div>
+<div class="button-group">
+    <button id="backButton" class="button" type="button" onclick="window.location.href='Index.html'">Voltar</button>
+</div>
+
+<footer>
+    <p>&copy; 2024 Googol. Todos os direitos reservados.</p>
+</footer>
+<div class="authors">
+    <p>Autores: Henrique Brás, Tiago Cardoso</p>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    var currentPage = 0;
+var linksPerPage = 10;
+
+function status(event) {
+    event.preventDefault();
+    console.log("testa_ligação_status");
+
+    $.ajax({
+        url: 'http://localhost:8080/admin',
+        type: 'GET',
+        contentType: 'application/json',
+        dataType: 'json',
+        success: function (response) {
+            if (response && response.message) {
+                var messageArray = response.message.split(', ');
+
+                document.getElementById("activeDownloaders").textContent = "Número de Downloaders Ativos: " + messageArray[0];
+                document.getElementById("totalLinks").textContent = "Número de Links Existentes: " + messageArray[1];
+
+                var linkList = document.getElementById("linkList");
+                linkList.innerHTML = ""; // Clear existing content
+
+                // Calculate the start and end index for the current page
+                var startIndex = currentPage * linksPerPage + 2;
+                var endIndex = Math.min(startIndex + linksPerPage, messageArray.length);
+
+                for (var i = startIndex; i < endIndex; i++) {
+                    var link = document.createElement("a");
+                    link.href = messageArray[i];
+                    link.textContent = messageArray[i];
+                    linkList.appendChild(link);
+                    linkList.appendChild(document.createElement("br")); // Add line break after each link
+                }
+
+                // Display pagination if needed
+                var pagination = document.getElementById("pagination");
+                pagination.style.display = "block";
+
+                // Update pagination buttons
+                var prevButton = document.getElementById("prevButton");
+                var nextButton = document.getElementById("nextButton");
+                prevButton.disabled = currentPage === 0; // Disable previous button on first page
+                nextButton.disabled = endIndex >= messageArray.length; // Disable next button on last page
+
+            } else {
+                alert('Resposta do servidor não contém mensagem.');
+            }
+        },
+    });
+}
+
+function changePage(change) {
+    currentPage += change;
+    status(event);
+}
+</script>
+</body>
+</html>

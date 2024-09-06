@@ -1,0 +1,7 @@
+- Abrir com o Intelij a pasta Meta2
+- Correr os ficheiros da pasta Meta_2\merge-aulas-demo\src\main\java\hello_callback:
+	- Barrels(À escolha)
+	- Gateway (Só 1 vez)
+	- Downloaders(À escolha)
+- Usar o Maven para inicializar o programa 
+- Entrar no navegador e na barra de pesquisa usar: localhost:8080

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesquisar Palavra</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/app.js"></script>
+</head>
+<body>
+    <h1>Pesquisar Palavra</h1>
+    <form onsubmit="passar_palavra(event)">
+        <label for="palavra">Digite a palavra para pesquisar:</label><br>
+        <input type="text" id="palavra" name="palavra" required><br><br>
+        <div class="button-group">
+            <button id="enviar_palavra" class="button"  type="submit">Enviar</button>
+            <button id="backButton" class="button" onclick="window.location.href='Index.html'" type="button">Voltar</button>
+        </div>
+    </form>
+    <p id="message"></p>
+    <ul id="results"></ul>
+    <div id="pagination" style="display: none;">
+        <button id="prevButton" class="button" onclick="changePage(-1)" type="button" disabled>&#8592; Anterior</button>
+        <button id="nextButton" class="button" onclick="changePage(1)" type="button">&#8594; Próxima</button>
+    </div>
+</body>
+</html>
